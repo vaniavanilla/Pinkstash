@@ -1,0 +1,594 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Stash ♡</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+
+:root {
+  --pink:#e9a9b9;
+  --pink-light:#fce9ed;
+  --cream:#fffaf3;
+  --brown:#765b52;
+  --dark:#513d38;
+  --muted:#aa9188;
+  --white:#fffdfb;
+  --green:#b4c7a6;
+  --shadow:0 8px 25px rgba(100,65,55,.09);
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  font-family:'DM Sans',sans-serif;
+  background:#fbf2ed;
+  color:var(--dark);
+}
+button,input,textarea,select {font:inherit}
+button {cursor:pointer}
+.app {
+  max-width:1200px;
+  margin:auto;
+  min-height:100vh;
+  padding:25px;
+}
+header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+.logo {
+  font-family:'Playfair Display',serif;
+  font-size:27px;
+  font-weight:bold;
+}
+.logo span {color:#d98ca3}
+.header-right {display:flex;align-items:center;gap:12px}
+.date {font-size:12px;color:var(--muted)}
+.avatar {
+  background:var(--pink-light);
+  border-radius:50%;
+  width:40px;height:40px;
+  display:grid;place-items:center;
+}
+.layout {
+  display:grid;
+  grid-template-columns:220px 1fr;
+  gap:22px;
+}
+.sidebar,.panel {
+  background:var(--white);
+  border-radius:23px;
+  box-shadow:var(--shadow);
+}
+.sidebar {padding:20px;height:fit-content}
+.side-title {
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:2px;
+  margin:10px 0 14px;
+}
+.nav {
+  width:100%;
+  border:0;
+  background:transparent;
+  text-align:left;
+  padding:12px;
+  border-radius:12px;
+  color:var(--brown);
+  margin-bottom:5px;
+  font-size:13px;
+}
+.nav.active,.nav:hover {background:var(--pink-light);color:#b96f87}
+.sidebar-note {
+  margin-top:30px;
+  padding:15px;
+  background:#f9f0e5;
+  border-radius:15px;
+  font-size:11px;
+  line-height:1.7;
+}
+main {min-width:0}
+.welcome {
+  background:linear-gradient(120deg,#f5dce2,#f8eadd);
+  padding:25px 30px;
+  border-radius:22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+.welcome h1 {
+  font-family:'Playfair Display',serif;
+  font-size:29px;
+  margin:5px 0;
+}
+.welcome p {font-size:12px;color:#876d66;margin:0}
+.welcome-art {font-size:60px;transform:rotate(-9deg)}
+.eyebrow {font-size:10px;letter-spacing:2px;color:#b27d83}
+.stats {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
+  margin-bottom:20px;
+}
+.stat {
+  background:var(--white);
+  border-radius:17px;
+  padding:16px;
+  box-shadow:var(--shadow);
+}
+.stat .emoji {font-size:20px}
+.stat strong {display:block;font-size:23px;margin:7px 0 2px}
+.stat small {font-size:11px;color:var(--muted)}
+.section-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:24px 0 13px;
+}
+.section-head h2 {
+  font-family:'Playfair Display',serif;
+  font-size:20px;
+  margin:0;
+}
+.btn {
+  border:0;
+  background:var(--pink);
+  color:white;
+  padding:10px 16px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:600;
+}
+.btn:hover {opacity:.85}
+.btn.soft {background:var(--pink-light);color:#a66c7c}
+.tin-area {
+  background:#fffaf3;
+  padding:20px;
+  border-radius:22px;
+  box-shadow:var(--shadow);
+  text-align:center;
+}
+.tin {
+  margin:10px auto 15px;
+  width:150px;
+  height:180px;
+  position:relative;
+  cursor:pointer;
+  transition:.3s;
+}
+.tin:hover {transform:translateY(-5px) rotate(-2deg)}
+.tin-body {
+  position:absolute;
+  bottom:0;
+  left:10px;
+  width:130px;
+  height:150px;
+  border-radius:18px 18px 25px 25px;
+  background:linear-gradient(90deg,#d88fa2,#f5c7d0 45%,#d88fa2);
+  border:3px solid #d28c9d;
+  box-shadow:inset 5px 0 10px #ffffff55,4px 7px 12px #c59a9a55;
+}
+.tin-body:before {
+  content:"DIGITAL STASH";
+  position:absolute;
+  top:40px;
+  left:8px;
+  right:8px;
+  background:#fff3e9;
+  border-radius:8px;
+  padding:12px 3px;
+  font-family:'Playfair Display',serif;
+  font-size:13px;
+  color:#9f6471;
+}
+.tin-body:after {
+  content:"♡ ✿ ♡";
+  position:absolute;
+  top:80px;
+  width:100%;
+  font-size:17px;
+  color:white;
+}
+.tin-lid {
+  position:absolute;
+  z-index:2;
+  top:12px;
+  left:6px;
+  width:138px;
+  height:20px;
+  border-radius:50%;
+  background:linear-gradient(#fce2e7,#d98fa3);
+  border:3px solid #cf8398;
+  transition:.4s;
+}
+.tin.open .tin-lid {transform:translateY(-27px) rotate(-8deg)}
+.tin-label {font-size:12px;color:var(--muted)}
+.stash-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
+}
+.stash-card {
+  border:1px solid #f2e6df;
+  background:#fffdfa;
+  padding:17px;
+  border-radius:17px;
+  min-height:120px;
+  transition:.2s;
+}
+.stash-card:hover {transform:translateY(-3px);box-shadow:var(--shadow)}
+.stash-icon {font-size:27px}
+.stash-card h3 {font-size:13px;margin:9px 0 4px}
+.stash-card p {font-size:10px;color:var(--muted);margin:0}
+.panel {padding:22px}
+.search {
+  width:100%;
+  padding:13px 16px;
+  border:1px solid #f1e5df;
+  background:#fffaf7;
+  border-radius:14px;
+  outline:none;
+  margin-bottom:15px;
+}
+.search:focus,input:focus,textarea:focus {border-color:var(--pink)}
+.item {
+  background:#fffaf7;
+  border:1px solid #f3e8e2;
+  padding:15px;
+  border-radius:14px;
+  margin-bottom:10px;
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+}
+.item-content {flex:1;min-width:0}
+.item h3 {font-size:13px;margin:0 0 5px}
+.item p {font-size:12px;color:#967e75;margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.item small {font-size:10px;color:#b49b91}
+.item.done h3,.item.done p {text-decoration:line-through;opacity:.5}
+.item-actions {display:flex;gap:5px}
+.icon-btn {
+  border:0;background:#f7e9e8;color:#98736d;
+  border-radius:8px;padding:6px 8px;font-size:12px;
+}
+.empty {text-align:center;padding:35px;color:var(--muted);font-size:13px}
+.modal-bg {
+  position:fixed;inset:0;background:#49363177;
+  display:none;place-items:center;padding:15px;z-index:10;
+}
+.modal-bg.show {display:grid}
+.modal {
+  background:var(--white);
+  width:100%;max-width:420px;
+  padding:25px;border-radius:22px;
+  max-height:90vh;overflow:auto;
+}
+.modal h2 {font-family:'Playfair Display',serif;margin-top:0}
+.modal label {font-size:11px;display:block;margin:12px 0 5px}
+.modal input,.modal textarea,.modal select {
+  width:100%;padding:12px;
+  border:1px solid #eee0da;border-radius:10px;
+  background:#fffaf7;outline:none;color:var(--dark);
+}
+.modal textarea {resize:vertical;min-height:100px}
+.modal-footer {display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+.hidden {display:none!important}
+footer {text-align:center;font-size:10px;color:#b49b91;padding:25px}
+@media(max-width:720px) {
+ .app{padding:14px}
+ .layout{grid-template-columns:1fr}
+ .sidebar{display:flex;overflow-x:auto;gap:4px;padding:10px}
+ .side-title,.sidebar-note{display:none}
+ .nav{white-space:nowrap;width:auto;margin:0}
+ .welcome{padding:20px}
+ .welcome h1{font-size:23px}
+ .welcome-art{font-size:42px}
+ .stash-grid{grid-template-columns:repeat(2,1fr)}
+ .stats{gap:8px}
+ .stat{padding:12px}
+ .stat strong{font-size:19px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="logo">digital <span>stash ♡</span></div>
+  <div class="header-right">
+    <span class="date" id="today"></span>
+    <div class="avatar">🎀</div>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="sidebar">
+  <div class="side-title">YOUR SPACE</div>
+  <button class="nav active" data-page="home">🏠 &nbsp; My Stash</button>
+  <button class="nav" data-page="notes">📝 &nbsp; Notes</button>
+  <button class="nav" data-page="tasks">☑️ &nbsp; Reminders</button>
+  <button class="nav" data-page="trinkets">💌 &nbsp; Trinkets</button>
+  <button class="nav" data-page="wishlist">🛍️ &nbsp; Wishlist</button>
+  <div class="sidebar-note">
+    ✨ A little reminder:<br>
+    Your thoughts, dreams, and little things deserve a place to stay.
+    <br><br>Made with ♡
+  </div>
+</aside>
+
+<main>
+<section id="home" class="page">
+  <div class="welcome">
+    <div>
+      <div class="eyebrow">YOUR PERSONAL LITTLE UNIVERSE</div>
+      <h1>Hello, little collector! ♡</h1>
+      <p>A tiny space for all the things that matter to you.</p>
+    </div>
+    <div class="welcome-art">🎀</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><span class="emoji">📝</span><strong id="noteCount">0</strong><small>Saved notes</small></div>
+    <div class="stat"><span class="emoji">☑️</span><strong id="taskCount">0</strong><small>Pending tasks</small></div>
+    <div class="stat"><span class="emoji">💌</span><strong id="trinketCount">0</strong><small>Little treasures</small></div>
+  </div>
+
+  <div class="tin-area">
+    <div class="eyebrow">A CAN FULL OF LITTLE THINGS</div>
+    <div class="tin" id="tin" onclick="openTin()">
+      <div class="tin-lid"></div>
+      <div class="tin-body"></div>
+    </div>
+    <div class="tin-label" id="tinLabel">Tap your tin can to explore ♡</div>
+  </div>
+
+  <div class="section-head">
+    <h2>Quick access</h2>
+    <button class="btn soft" onclick="openModal('note')">+ Add new</button>
+  </div>
+  <div class="stash-grid">
+    <div class="stash-card" onclick="navigate('notes')"><div class="stash-icon">📓</div><h3>My Notes</h3><p>Little thoughts & ideas</p></div>
+    <div class="stash-card" onclick="navigate('tasks')"><div class="stash-icon">🧸</div><h3>To-do List</h3><p>Things to remember</p></div>
+    <div class="stash-card" onclick="navigate('trinkets')"><div class="stash-icon">🌷</div><h3>Memories</h3><p>Collect little moments</p></div>
+    <div class="stash-card" onclick="navigate('wishlist')"><div class="stash-icon">🎁</div><h3>Wishlist</h3><p>Things I dream of</p></div>
+    <div class="stash-card" onclick="navigate('trinkets')"><div class="stash-icon">⭐</div><h3>Inspirations</h3><p>Quotes & motivation</p></div>
+    <div class="stash-card" onclick="navigate('notes')"><div class="stash-icon">🪞</div><h3>Brain dump</h3><p>Let it all out</p></div>
+  </div>
+</section>
+
+<section id="notes" class="page hidden">
+  <div class="section-head"><h2>📝 My Notes</h2><button class="btn" onclick="openModal('note')">+ New note</button></div>
+  <div class="panel">
+    <input class="search" placeholder="🔍 Search your notes..." oninput="renderList('notes',this.value)">
+    <div id="notesList"></div>
+  </div>
+</section>
+
+<section id="tasks" class="page hidden">
+  <div class="section-head"><h2>☑️ Reminders</h2><button class="btn" onclick="openModal('task')">+ New task</button></div>
+  <div class="panel">
+    <input class="search" placeholder="🔍 Search tasks..." oninput="renderList('tasks',this.value)">
+    <div id="tasksList"></div>
+  </div>
+</section>
+
+<section id="trinkets" class="page hidden">
+  <div class="section-head"><h2>💌 Little Trinkets</h2><button class="btn" onclick="openModal('trinket')">+ Add trinket</button></div>
+  <div class="panel">
+    <input class="search" placeholder="🔍 Search trinkets..." oninput="renderList('trinkets',this.value)">
+    <div id="trinketsList"></div>
+  </div>
+</section>
+
+<section id="wishlist" class="page hidden">
+  <div class="section-head"><h2>🛍️ My Wishlist</h2><button class="btn" onclick="openModal('wishlist')">+ Add wish</button></div>
+  <div class="panel">
+    <input class="search" placeholder="🔍 Search wishlist..." oninput="renderList('wishlist',this.value)">
+    <div id="wishlistList"></div>
+  </div>
+</section>
+</main>
+</div>
+<footer>digital stash ♡ a little tin can for your digital life · made with love</footer>
+</div>
+
+<div class="modal-bg" id="modalBg">
+<div class="modal">
+  <h2 id="modalTitle">Add something ♡</h2>
+  <form id="itemForm">
+    <input type="hidden" id="itemType">
+    <input type="hidden" id="itemId">
+    <label>Title</label>
+    <input id="itemTitle" placeholder="Give it a cute name..." required>
+    <label id="contentLabel">Content</label>
+    <textarea id="itemContent" placeholder="Write something here..."></textarea>
+    <div id="taskFields" class="hidden">
+      <label>Due date</label>
+      <input type="date" id="itemDate">
+    </div>
+    <div id="trinketFields" class="hidden">
+      <label>Choose an icon</label>
+      <select id="itemIcon">
+        <option>💌</option><option>🌷</option><option>⭐</option>
+        <option>🎀</option><option>🧸</option><option>🦢</option>
+        <option>🍓</option><option>🪞</option><option>☁️</option>
+        <option>🦋</option>
+      </select>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn soft" onclick="closeModal()">Cancel</button>
+      <button type="submit" class="btn">Save to stash ♡</button>
+    </div>
+  </form>
+</div>
+</div>
+
+<script>
+const keys = {
+  notes:'digitalStash_notes',
+  tasks:'digitalStash_tasks',
+  trinkets:'digitalStash_trinkets',
+  wishlist:'digitalStash_wishlist'
+};
+
+let data = {};
+Object.keys(keys).forEach(k=>{
+  try { data[k]=JSON.parse(localStorage.getItem(keys[k])) || []; }
+  catch(e) { data[k]=[]; }
+});
+
+function save(){
+  Object.keys(keys).forEach(k=>{
+    localStorage.setItem(keys[k],JSON.stringify(data[k]));
+  });
+  updateStats();
+}
+
+function updateStats(){
+  document.getElementById('noteCount').textContent=data.notes.length;
+  document.getElementById('taskCount').textContent=data.tasks.filter(x=>!x.done).length;
+  document.getElementById('trinketCount').textContent=data.trinkets.length+data.wishlist.length;
+}
+
+document.getElementById('today').textContent=
+  new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+
+function navigate(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
+  document.getElementById(page).classList.remove('hidden');
+  document.querySelectorAll('.nav').forEach(n=>{
+    n.classList.toggle('active',n.dataset.page===page);
+  });
+  if(page!=='home')renderList(page);
+}
+
+document.querySelectorAll('.nav').forEach(n=>{
+  n.addEventListener('click',()=>navigate(n.dataset.page));
+});
+
+let tinOpen=false;
+function openTin(){
+  tinOpen=!tinOpen;
+  document.getElementById('tin').classList.toggle('open',tinOpen);
+  document.getElementById('tinLabel').textContent=
+    tinOpen?'Welcome inside! Choose a little treasure below ♡':'Tap your tin can to explore ♡';
+  if(tinOpen){
+    setTimeout(()=>navigate('trinkets'),500);
+  }
+}
+
+function openModal(type,id=null){
+  const modal=document.getElementById('modalBg');
+  const existing=id?data[type].find(x=>x.id===id):null;
+  document.getElementById('itemForm').reset();
+  document.getElementById('itemType').value=type;
+  document.getElementById('itemId').value=id||'';
+  document.getElementById('modalTitle').textContent=
+    existing?'Edit your little treasure ♡':'Add something new ♡';
+  document.getElementById('itemTitle').value=existing?.title||'';
+  document.getElementById('itemContent').value=existing?.content||'';
+  document.getElementById('itemDate').value=existing?.date||'';
+  document.getElementById('itemIcon').value=existing?.icon||'💌';
+
+  document.getElementById('taskFields').classList.toggle('hidden',type!=='tasks');
+  document.getElementById('trinketFields').classList.toggle('hidden',type!=='trinkets' && type!=='wishlist');
+  document.getElementById('contentLabel').textContent=
+    type==='tasks'?'Details (optional)':type==='wishlist'?'Why do you want it?':'Content';
+  document.getElementById('itemContent').placeholder=
+    type==='tasks'?'What do you need to do?':
+    type==='wishlist'?'Describe your dream item...':'Write your thoughts here...';
+  modal.classList.add('show');
+}
+
+function closeModal(){
+  document.getElementById('modalBg').classList.remove('show');
+}
+
+document.getElementById('modalBg').addEventListener('click',e=>{
+  if(e.target.id==='modalBg')closeModal();
+});
+
+document.getElementById('itemForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const type=document.getElementById('itemType').value;
+  const id=document.getElementById('itemId').value;
+  const old=id?data[type].find(x=>x.id===id):null;
+  const item={
+    id:id||Date.now().toString(),
+    title:document.getElementById('itemTitle').value.trim(),
+    content:document.getElementById('itemContent').value.trim(),
+    date:document.getElementById('itemDate').value,
+    icon:document.getElementById('itemIcon').value,
+    done:old?.done||false,
+    created:old?.created||new Date().toISOString()
+  };
+  if(old) Object.assign(old,item);
+  else data[type].unshift(item);
+  save();
+  closeModal();
+  renderList(type);
+});
+
+function escapeHTML(str){
+  return String(str||'').replace(/[&<>"']/g,c=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  })[c]);
+}
+
+function renderList(type,query=''){
+  const container=document.getElementById(type+'List');
+  if(!container)return;
+  const filtered=data[type].filter(x=>
+    (x.title+' '+x.content).toLowerCase().includes(query.toLowerCase())
+  );
+  if(!filtered.length){
+    container.innerHTML='<div class="empty">🌷<br><br>Nothing here yet.<br>Start collecting little things!</div>';
+    return;
+  }
+  container.innerHTML=filtered.map(x=>`
+    <div class="item ${x.done?'done':''}">
+      <div class="item-content">
+        <h3>${type==='trinkets'||type==='wishlist'?escapeHTML(x.icon)+' ':''}${escapeHTML(x.title)}</h3>
+        <p>${escapeHTML(x.content)}</p>
+        ${x.date?'<small>📅 '+escapeHTML(x.date)+'</small>':''}
+      </div>
+      <div class="item-actions">
+        ${type==='tasks'?`<button class="icon-btn" onclick="toggleTask('${x.id}')">${x.done?'↩':'✓'}</button>`:''}
+        <button class="icon-btn" onclick="openModal('${type}','${x.id}')">✎</button>
+        <button class="icon-btn" onclick="deleteItem('${type}','${x.id}')">×</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleTask(id){
+  const item=data.tasks.find(x=>x.id===id);
+  if(item)item.done=!item.done;
+  save();
+  renderList('tasks');
+}
+
+function deleteItem(type,id){
+  if(!confirm('Remove this from your stash? ♡'))return;
+  data[type]=data[type].filter(x=>x.id!==id);
+  save();
+  renderList(type);
+}
+
+function openTin(){
+  tinOpen=!tinOpen;
+  document.getElementById('tin').classList.toggle('open',tinOpen);
+  document.getElementById('tinLabel').textContent=
+    tinOpen?'Opening your collection... ♡':'Tap your tin can to explore ♡';
+  if(tinOpen)setTimeout(()=>navigate('trinkets'),500);
+}
+
+updateStats();
+Object.keys(keys).forEach(k=>renderList(k));
+</script>
+</body>
+</html>
